@@ -1,0 +1,2 @@
+class HTTPConstants:
+    ERROR_RESPONSE_REASON_PHRASE_UNAUTHORIZED = "Unauthorized"
