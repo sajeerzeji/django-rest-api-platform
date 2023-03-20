@@ -39,7 +39,7 @@ class CustomTokenView(TokenView):
 
     @method_decorator(sensitive_post_parameters("password"))
     def post(self, request, *args, **kwargs):
-        tenant_name = request.GET.get("tenant");
+        tenant_name = request.POST.get("tenant");
         if tenant_name is None:
             raise APIException('A tenant name is mandatory.')
         try:

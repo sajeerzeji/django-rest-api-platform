@@ -105,7 +105,7 @@ WSGI_APPLICATION = 'ozihawk_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'tenant_schemas.postgresql_backend',
-        'NAME': os.getenv('DB_NAME', 'oh'),
+        'NAME': os.getenv('DB_NAME', 'oh_django'),
         'USER': os.getenv('DB_USER', 'sajeer'),
         'PASSWORD': os.getenv('DB_PASSWORD', 'sajeer123'),
         'HOST': os.getenv('HOST', 'localhost'),

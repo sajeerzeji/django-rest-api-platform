@@ -27,7 +27,7 @@ urlpatterns = [
     path('o/authorize/', oauth2_views.AuthorizationView.as_view(), name="authorize"),
     path('o/token/', CustomTokenView.as_view(), name="token"),
     # path('o/revoke-token/', oauth2_views.RevokeTokenView.as_view(), name="revoke-token"),
-    path('o/revoke-token/', CustomRevokeTokenView, name="revoke-token"),
+    path('o/revoke-token/', CustomRevokeTokenView.as_view(), name="revoke-token"),
     path('tenant/', include('tenant.urls')),
     path('management/', include('management.urls')),
     # path('users/', UserList.as_view()),

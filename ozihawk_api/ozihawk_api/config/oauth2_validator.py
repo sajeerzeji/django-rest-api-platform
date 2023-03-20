@@ -14,7 +14,7 @@ from django.db import transaction
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.timezone import make_aware
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from oauthlib.oauth2 import RequestValidator
 
 from oauth2_provider.exceptions import FatalClientError
