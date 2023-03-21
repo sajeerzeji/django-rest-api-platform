@@ -25,8 +25,8 @@ class JWTUtils:
         if "Bearer" in token:
             token = token.replace("Bearer ", "")
             token = token.strip()
-        return jwt.decode(token, "0VYVGEHMlXDDsdKloKKyHVr8e5slQd7r", algorithm="HS256", verify=verify)
+        return jwt.decode(token, "dTHCAfWq3qXUtgDIGQNp8OPQFuB1YnwI", "HS256")
 
     @staticmethod
     def decode_refresh_token(token, verify=False):
-        return jwt.decode(token, "0VYVGEHMlXDDsdKloKKyHVr8e5slQd7r", algorithm="HS256", verify=verify)
+        return jwt.decode(token, "dTHCAfWq3qXUtgDIGQNp8OPQFuB1YnwI", "HS256")
