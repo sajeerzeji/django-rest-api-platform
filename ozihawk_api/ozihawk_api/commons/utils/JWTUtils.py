@@ -12,11 +12,13 @@ class JWTUtils:
 
     @staticmethod
     def encode_access_token(payload):
-        return jwt.encode(payload, "dTHCAfWq3qXUtgDIGQNp8OPQFuB1YnwI", "HS256").decode("utf-8")
+        # return jwt.encode(payload, "dTHCAfWq3qXUtgDIGQNp8OPQFuB1YnwI", "HS256").decode("utf-8")
+        return jwt.encode(payload, "dTHCAfWq3qXUtgDIGQNp8OPQFuB1YnwI", "HS256")
 
     @staticmethod
     def encode_refresh_token(payload):
-        return jwt.encode(payload, "dTHCAfWq3qXUtgDIGQNp8OPQFuB1YnwI", "HS256").decode("utf-8")
+        # return jwt.encode(payload, "dTHCAfWq3qXUtgDIGQNp8OPQFuB1YnwI", "HS256").decode("utf-8")
+        return jwt.encode(payload, "dTHCAfWq3qXUtgDIGQNp8OPQFuB1YnwI", "HS256")
 
     @staticmethod
     def decode_access_token(token, verify=False):

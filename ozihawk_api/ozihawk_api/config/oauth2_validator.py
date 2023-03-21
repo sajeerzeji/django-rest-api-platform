@@ -25,6 +25,8 @@ from oauth2_provider.models import (
 from oauth2_provider.scopes import get_scopes_backend
 from oauth2_provider.settings import oauth2_settings
 
+from django.contrib.auth.hashers import check_password
+
 from ozihawk_api.commons.utils.JWTUtils import JWTUtils
 
 log = logging.getLogger("oauth2_provider")
@@ -109,7 +111,7 @@ class OAuth2Validator(OAuth2Validator, RequestValidator):
         elif request.client.client_id != client_id:
             log.debug("Failed basic auth: wrong client id %s" % client_id)
             return False
-        elif request.client.client_secret != client_secret:
+        elif not check_password(client_secret, request.client.client_secret):
             log.debug("Failed basic auth: wrong client secret %s" % client_secret)
             return False
         else:
