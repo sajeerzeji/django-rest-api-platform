@@ -1,12 +1,10 @@
-from rest_framework.exceptions import ValidationError
-from tenant.serializers import UserSerializer
+from tenant.serializers.serializers import UserSerializer
 from django.contrib.auth.models import User
 from django.http.response import HttpResponse
-from django.shortcuts import render
-from oauth2_provider.views.generic import ProtectedResourceView
 from rest_framework import generics, permissions
 from rest_framework.generics import RetrieveAPIView
-from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
+from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope
+
 
 # Create your views here.
 

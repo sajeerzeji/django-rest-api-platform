@@ -9,9 +9,13 @@ def handle(exc, context):
     # to get the standard error response.
     response = exception_handler(exc, context)
 
-    auth_header = exc.auth_header
     error = None
     error_description = None
+
+    try:
+        auth_header = exc.auth_header
+    except Exception:
+        auth_header = None
     auth_header_array = [] if auth_header is None else auth_header.split(",")
     for header_string in auth_header_array:
         if "error_description" in header_string:

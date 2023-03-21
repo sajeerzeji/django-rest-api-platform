@@ -1,29 +1,24 @@
 from django.core.exceptions import ObjectDoesNotExist
 from oauthlib.oauth2.rfc6749.grant_types.base import GrantTypeBase
-from django.http.response import HttpResponse
 from rest_framework import viewsets, status
 from rest_framework.exceptions import APIException
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
+from django.contrib.auth.models import User
 
 from ozihawk_api.commons.constants.tenant_constants import TenantConstants
 from ozihawk_api.commons.utils.db_utils import DBUtils
 from ozihawk_api.commons.utils.number_utils import NumberUtils
-from ozihawk_api.config.oauth2_validator import OAuth2Validator
-from tenant import serializers
 from tenant.commons.utils.tenant_api_responses import TenantAPIErrors
 from tenant.commons.utils.tenant_utils import TenantUtils
 from tenant.persistence.model.tenant_model import Tenant
-from tenant.serializers import ClientSerializer, UserSerializer
-from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
-from rest_framework import generics, permissions
-from django.contrib.auth.models import Group, User
+from tenant.serializers.tenant.tenant_serializer import TenantSerializer
 
 
-class ClientViewSet(GrantTypeBase, viewsets.ViewSet):
+class TenantView(GrantTypeBase, viewsets.ViewSet):
     # authentication_classes = ([])
     permission_classes = (IsAdminUser,)
-    serializer_class = ClientSerializer
+    serializer_class = TenantSerializer
 
     def get(self, request, *args, **kwargs):
         # request_validator = request_validator or RequestValidator()
@@ -33,14 +28,18 @@ class ClientViewSet(GrantTypeBase, viewsets.ViewSet):
         tenantName = request.GET['tenant']
         if tenantName is None:
             raise APIException('A tenant name is mandatory')
-        tenant = Tenant.objects.get(tenant_name=tenantName)
+        try:
+            tenant = Tenant.objects.get(tenant_name=tenantName)
+        except ObjectDoesNotExist:
+            tenant = None
+        if tenant is None:
+            raise APIException('Tenant' + (' ' + tenantName if tenantName is not None else '') + ' does not exists')
         serializer = self.serializer_class(tenant, many=False)
         tenant = serializer.data
         if tenant is not None:
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response({}, status=status.status.HTTP_404_NOT_FOUND)
-
 
     def create(self, request):
         # request_validator = RequestValidator()
@@ -125,13 +124,3 @@ class ClientViewSet(GrantTypeBase, viewsets.ViewSet):
 
         serializer = self.serializer_class(tenant, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-class UserList(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAuthenticated, TokenHasReadWriteScope]
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
-class ManagementHelloWorld(viewsets.ViewSet):
-    def create(self, request, *args, **kwargs):
-        return HttpResponse('Hello, OAuth2!')
