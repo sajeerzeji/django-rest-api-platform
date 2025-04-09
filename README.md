@@ -35,8 +35,8 @@ This will give you an access token, with that token as a bearer token, you can c
 	"password": "sajeer123",
 	"firstName": "Sajeer",
 	"lastName": "Zeji",
-	"mobile": "9048886804",
-	"email": "sajeerzeji44@gmail.com",
+	"mobile": "XXXXXXXXXX",
+	"email": "example@example.com",
 	"paidUntil": "2021-02-14"
 }
 ```
